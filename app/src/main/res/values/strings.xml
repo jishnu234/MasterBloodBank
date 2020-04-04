@@ -3,6 +3,38 @@
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="blood_groups">
+        <item>Choose your blood group</item>
+        <item>A+ve</item>
+        <item>A-ve</item>
+        <item>B+ve</item>
+        <item>B-ve</item>
+        <item>O+ve</item>
+        <item>O-ve</item>
+        <item>AB+ve</item>
+        <item>AB-ve</item>
+        <item>A-ve</item>
+    </string-array>
+
+    <string-array name="districts">
+        <item>choose your district</item>
+        <item>Kasargod</item>
+        <item>Kannur</item>
+        <item>Wayanad</item>
+        <item>Kozhikode</item>
+        <item>Malappuram</item>
+        <item>Palakkad</item>
+        <item>Thrissur</item>
+        <item>Eranakulam</item>
+        <item>Alappuzha</item>
+        <item>Iduki</item>
+        <item>Pathanamthita</item>
+        <item>Kottayam</item>
+        <item>Kollam</item>
+        <item>Trivandrum</item>
+
+    </string-array>
+
 </resources>
