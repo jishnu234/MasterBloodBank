@@ -34,17 +34,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-         drawerLayout=findViewById(R.id.drawer_layout);
-         navigationView=findViewById(R.id.navigation_view);
-         toolbar=findViewById(R.id.toolbar);
+         drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+         navigationView=(NavigationView)findViewById(R.id.navigation_view);
+         toolbar=(Toolbar)findViewById(R.id.toolbar);
          setSupportActionBar(toolbar);
          needMenu=new needMenuFragment();
          contact=new contact_usFragment();
          about=new about_MenuFragment();
          donate=new Donate_bloodFragment();
+
+//         SplashScreen.splashScreen.finish();
 
 
 

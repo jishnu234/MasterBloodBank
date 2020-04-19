@@ -11,6 +11,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:id="@+id/image"
+        android:transitionName="logo_image"
         android:layout_centerInParent="true"
         android:src="@drawable/blood_drop"/>
 
@@ -30,11 +31,12 @@
         android:text="Powered by"
         android:textColor="#fff"
         android:textSize="20dp"
-        android:id="@+id/top"/>
+        android:id="@+id/top_text"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Farook College"
+        android:id="@+id/bottom_text"
         android:textColor="#fff"
         android:textStyle="bold"
         android:textSize="25dp"
