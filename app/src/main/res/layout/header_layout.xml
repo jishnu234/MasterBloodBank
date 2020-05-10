@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:fitsSystemWindows="true"
     android:layout_height="200dp"
-    android:background="@drawable/black_background">
+    android:background="@drawable/splash_background">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

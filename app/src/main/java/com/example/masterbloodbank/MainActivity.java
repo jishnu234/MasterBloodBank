@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBarDrawerToggle toggle=new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.drawertoggleColor));
         toggle.syncState();
-
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container,needMenu).commit();
         navigationView.setCheckedItem(R.id.need_blood);

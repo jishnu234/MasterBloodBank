@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start"
-    android:background="@drawable/background"
+    android:background="@drawable/main_background"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -21,6 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="#F12F2F"
             app:title="@string/app_name"
+            app:titleTextColor="#fff"
             android:theme="?attr/actionBarTheme"/>
         <RelativeLayout
             android:layout_width="match_parent"

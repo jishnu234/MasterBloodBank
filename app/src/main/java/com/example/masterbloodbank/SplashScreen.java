@@ -14,33 +14,35 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class SplashScreen extends AppCompatActivity {
     ImageView imageView;
-    TextView text1,text2;
+    RelativeLayout botom_text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
 
-        imageView=findViewById(R.id.image);
-        text1=findViewById(R.id.top_text);
-        text2=findViewById(R.id.bottom_text);
+        imageView=findViewById(R.id.logo_img);
+        botom_text=(RelativeLayout) findViewById(R.id.logo_txt) ;
 
         Animation bottom_animation=AnimationUtils.loadAnimation(this,R.anim.bottom_anim);
         Animation top_animation= AnimationUtils.loadAnimation(this,R.anim.top_anim);
         imageView.setAnimation(top_animation);
-        text1.setAnimation(bottom_animation);
-        text2.setAnimation(bottom_animation);
+        botom_text.setAnimation(bottom_animation);
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent intent=new Intent(SplashScreen.this,MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                finish();
+                overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+
 
 //                if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
 //                {
@@ -66,6 +68,11 @@ public class SplashScreen extends AppCompatActivity {
 //                }
 
             }
-        },5000);
+        },3000);
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 }

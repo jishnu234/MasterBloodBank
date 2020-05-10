@@ -1,54 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:padding="30dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/main_background"
+    android:padding="20dp"
     tools:context=".needMenuFragment">
 
+
     <ImageView
+        android:id="@+id/image"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:transitionName="logo_image"
-        android:layout_centerHorizontal="true"
         android:layout_above="@+id/linear_layout"
-        android:layout_marginBottom="80dp"
-        android:src="@drawable/blood_drop"/>
-
+        android:src="@drawable/blood_drop"
+        app:layout_constraintBottom_toTopOf="@+id/linear_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
         android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="200dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image">
 
         <Spinner
+            android:id="@+id/need_spinner_blood"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:paddingLeft="10dp"
+            android:layout_height="55dp"
             android:background="@drawable/widgets_background"
-            android:entries="@array/blood_groups" />
+            android:entries="@array/blood_groups"
+            android:paddingLeft="10dp" />
 
         <Spinner
+            android:id="@+id/need_spinner_district"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
             android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:paddingLeft="10dp"
             android:background="@drawable/widgets_background"
-            android:entries="@array/districts" />
+            android:entries="@array/districts"
+            android:paddingLeft="10dp" />
+
         <Button
-            android:layout_marginTop="30dp"
+            android:id="@+id/need_btn"
             android:layout_width="250dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
             android:background="@drawable/widgets_background"
-            android:layout_height="40dp"
             android:text="submit" />
-
-
-
     </LinearLayout>
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
