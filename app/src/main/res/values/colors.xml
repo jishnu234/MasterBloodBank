@@ -7,5 +7,7 @@
 <!--    <color name="boxStrokeColor" tools:override="true">#E82323</color>-->
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#E82323</color>
 
+    <color name="layout_color">#E82323</color>
+
     <color name="drawertoggleColor">#fff</color>
 </resources>

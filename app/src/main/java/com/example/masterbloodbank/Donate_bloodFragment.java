@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +13,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.masterbloodbank.MainActivity;
+import com.example.masterbloodbank.Donor;
+import com.example.masterbloodbank.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,10 +28,12 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Donate_bloodFragment extends Fragment {
 
-    private TextInputLayout reg_name,reg_email,reg_phone;
+    private TextInputLayout reg_name,reg_age,reg_phone;
     private Spinner reg_blood,reg_district;
     private Button reg_btn;
     DatabaseReference reference;
+    Donor donor;
+    String TAG="Donate_blood_fragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,7 +43,7 @@ public class Donate_bloodFragment extends Fragment {
 
         reference=FirebaseDatabase.getInstance().getReference("Donor");
         reg_name=view.findViewById(R.id.reg_name);
-        reg_email=view.findViewById(R.id.reg_email);
+        reg_age=view.findViewById(R.id.reg_age);
         reg_phone=view.findViewById(R.id.reg_phone);
         reg_blood=view.findViewById(R.id.reg_blood_group);
         reg_district=view.findViewById(R.id.reg_district);
@@ -56,7 +63,7 @@ public class Donate_bloodFragment extends Fragment {
 
     private void registerUser() {
 
-        if( !validateEmail() | !validatePhone() | !validateUser())
+        if( !validateAge() | !validatePhone() | !validateUser())
         {
             return;
         }
@@ -71,23 +78,27 @@ public class Donate_bloodFragment extends Fragment {
 
 
 
-
 //        Toast.makeText((MainActivity)getActivity(),"validation successfull", Toast.LENGTH_SHORT).show();
-        String name=reg_name.getEditText().getText().toString().trim();
         final String phone=reg_phone.getEditText().getText().toString().trim();
-        final String email=reg_email.getEditText().getText().toString();
-        String blood=reg_blood.getSelectedItem().toString();
-        String dist=reg_district.getSelectedItem().toString();
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(phone).exists())
                 {
-
-                    if(email.equals(dataSnapshot.child(phone).child("email").getValue(String.class))) {
-                        Toast.makeText((MainActivity) getActivity(), "user Already found", Toast.LENGTH_SHORT).show();
-                    }
+                        Toast.makeText((MainActivity) getActivity(), "User already registered ", Toast.LENGTH_SHORT).show();
+                        reg_age.getEditText().setText("");
+                        reg_name.getEditText().setText("");
+                        reg_phone.getEditText().setText("");
+                        reg_blood.setSelection(0);
+                        reg_district.setSelection(0);
                 }
+                else
+                {
+                    addData();
+                }
+
             }
 
             @Override
@@ -95,7 +106,50 @@ public class Donate_bloodFragment extends Fragment {
 
             }
         });
+
+            Log.d(TAG, "registerUser: status 0 started");
+
+
+        }
+
+
+    private void addData() {
+
+
+        String age=reg_age.getEditText().getText().toString();
+        String blood=reg_blood.getSelectedItem().toString();
+        String dist=reg_district.getSelectedItem().toString();
+        String name=reg_name.getEditText().getText().toString().trim();
+        String phone=reg_phone.getEditText().getText().toString().trim();
+
+        donor=new Donor();
+
+        donor.setAge(age);
+        donor.setBlood_group(blood);
+        donor.setDistrict(dist);
+        donor.setName(name);
+        donor.setPhone(phone);
+
+        reference.child(phone).setValue(donor).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                {
+                    Toast.makeText((MainActivity)getActivity(), "Data inserted successfully", Toast.LENGTH_SHORT).show();
+                    reg_age.getEditText().setText("");
+                    reg_name.getEditText().setText("");
+                    reg_phone.getEditText().setText("");
+                    reg_blood.setSelection(0);
+                    reg_district.setSelection(0);
+                }
+                else
+                {
+                    Toast.makeText((MainActivity)getActivity(), "Something went wrong,can't insert data", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
+
     private Boolean validateDistrict() {
 
         String district=reg_district.getSelectedItem().toString();
@@ -112,18 +166,18 @@ public class Donate_bloodFragment extends Fragment {
     private Boolean validateUser() {
 
         String user=reg_name.getEditText().getText().toString().trim();
-        String nowhiteSpaces="\\A\\w{4,20}\\z";
+//        String nowhiteSpaces="\\A\\w{4,20}\\z";
 
         if(user.isEmpty())
         {
             reg_name.setError("This field cannot be empty");
             return false;
         }
-        else if(!user.matches(nowhiteSpaces))
-        {
-            reg_name.setError("white spaces are not allowed");
-            return false;
-        }
+//        else if(!user.matches(nowhiteSpaces))
+//        {
+//            reg_name.setError("white spaces are not allowed");
+//            return false;
+//        }
         else
         {
             reg_name.setError(null);
@@ -131,22 +185,22 @@ public class Donate_bloodFragment extends Fragment {
         }
 
     }
-    private Boolean validateEmail() {
-        String emailId=reg_email.getEditText().getText().toString();
-        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-        if(emailId.isEmpty())
+    private Boolean validateAge() {
+        String age=reg_age.getEditText().getText().toString();
+//        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        if(age.isEmpty())
         {
-            reg_email.setError("This field cannot be empty");
+            reg_age.setError("This field cannot be empty");
             return false;
         }
-        else if(!emailId.matches(emailPattern))
+        else if(Integer.parseInt(age)<18)
         {
-            reg_email.setError("Invalid email entered");
+            reg_age.setError("You cant register,you are under aged");
             return false;
         }
         else
         {
-            reg_email.setError(null);
+            reg_age.setError(null);
             return true;
         }
     }

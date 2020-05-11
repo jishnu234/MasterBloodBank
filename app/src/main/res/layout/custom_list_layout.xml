@@ -3,69 +3,97 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="5dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         app:cardCornerRadius="12dp"
         android:layout_margin="5dp"
         app:cardBackgroundColor="#F1DEDD"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:background="@drawable/widgets_background"
             android:padding="6dp"
             >
-            <RelativeLayout
-                android:layout_width="5dp"
-                android:id="@+id/relativeLayout"
-                android:layout_height="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/flag_custom"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/relativeLayout"
-                android:weightSum="9"
+                android:weightSum="10"
+                android:layout_centerInParent="true"
                 android:padding="5dp"
                 android:orientation="horizontal"
-                android:layout_toEndOf="@+id/relativeLayout">
-
+                >
+                <RelativeLayout
+                    android:layout_width="5dp"
+                    android:id="@+id/relativeLayout"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:fitsSystemWindows="true"
+                    android:layout_weight=".1"
+                    android:background="@drawable/flag_custom"/>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_weight="3">
+                    android:fitsSystemWindows="true"
+                    android:paddingRight="5dp"
+                    android:layout_weight="3.9"
+                    android:paddingEnd="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="Name resides here"
+                    android:autoSizeTextType="none"
+                    android:includeFontPadding="false"
+                    android:textColor="#000"
                     android:textStyle="bold"
-                    android:id="@+id/custom_text"/>
+                    android:maxLength="18"
+                    android:paddingLeft="5dp"
+                    android:id="@+id/custom_name"
+                    android:paddingStart="5dp" />
                 <TextView
                     android:layout_marginTop="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
                     android:layout_gravity="center_horizontal"
-                    android:textStyle="bold|italic"
+                    android:textStyle="italic"
+                    android:textColor="#000"
                     android:text="District"
                     android:id="@+id/custom_dist"/>
 
                 </LinearLayout>
                 <TextView
+                    android:fitsSystemWindows="true"
+                    android:id="@+id/custom_blood"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    android:text="+91 9061804141"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:includeFontPadding="false"
+                    android:text="AB+ve"
+                    android:textColor="#E41010"
                     android:gravity="center"/>
+                <TextView
+                    android:id="@+id/custom_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:text="+91 9061804141"
+                    android:textColor="#000"
+                    android:includeFontPadding="false"
+                    android:textStyle="bold"
+                    android:paddingLeft="5dp"
+                    android:gravity="center"
+                    android:paddingStart="5dp" />
 
                 <ImageView
+                    android:fitsSystemWindows="true"
                     android:id="@+id/custom_call"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

@@ -56,7 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:background="@drawable/widgets_background"
+            android:textColor="#fff"
+            android:background="@drawable/button_layout"
             android:text="submit" />
     </LinearLayout>
 

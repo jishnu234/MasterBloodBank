@@ -14,7 +14,7 @@
     </style>
 
     <style name="TextInputLayoutStrokeColor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">#E82323</item>
+        <item name="boxStrokeColor">@color/layout_color</item>
         <item name="boxStrokeWidth">2dp</item>
     </style>
 

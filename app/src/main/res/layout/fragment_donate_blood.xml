@@ -32,7 +32,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/reg_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayoutStrokeColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
@@ -52,8 +52,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/reg_email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/reg_age"
+            style="@style/TextInputLayoutStrokeColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Age"
@@ -67,7 +67,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft=""
+                android:drawableLeft="@drawable/age_icon"
                 android:maxLength="2"
                 android:drawablePadding="10dp"
                 android:inputType="number" />
@@ -75,6 +75,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/reg_phone"
+            android:theme="@style/TextInputLayoutStrokeColor"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,8 +119,8 @@
             android:layout_height="55dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
-            android:background="@drawable/widgets_background"
-            android:textColor="#000"
+            android:background="@drawable/button_layout"
+            android:textColor="#fff"
             android:text="Register" />
 
     </LinearLayout>
