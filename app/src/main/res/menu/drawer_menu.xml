@@ -14,9 +14,7 @@
 
     <item android:title="Communicate">
     <menu>
-    <item android:title="About"
-        android:id="@+id/about"
-        android:icon="@drawable/about_icon"/>
+
     <item android:title="Contact Us"
         android:id="@+id/contact_us"
         android:icon="@drawable/contact_us"/>

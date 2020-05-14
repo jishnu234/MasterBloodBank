@@ -49,6 +49,8 @@ public class Donate_bloodFragment extends Fragment {
         reg_district=view.findViewById(R.id.reg_district);
         reg_btn=view.findViewById(R.id.reg_btn);
 
+
+
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Registration");
 
         reg_btn.setOnClickListener(new View.OnClickListener() {

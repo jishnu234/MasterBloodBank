@@ -1,5 +1,6 @@
 package com.example.masterbloodbank;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class needMenuFragment extends Fragment {
 
     private Spinner need_blood, need_district;
-    private Button need_btn;
+    private Button need_btn,share_btn;
     private DatabaseReference reference;
 
 
@@ -40,9 +42,11 @@ public class needMenuFragment extends Fragment {
         need_blood = (Spinner) view.findViewById(R.id.need_spinner_blood);
         need_district = (Spinner) view.findViewById(R.id.need_spinner_district);
         need_btn = (Button) view.findViewById(R.id.need_btn);
+        share_btn=(Button) view.findViewById(R.id.share_btn);
 
 
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Need Menu");
+
 
         need_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,8 +56,71 @@ public class needMenuFragment extends Fragment {
             }
         });
 
+        share_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                whatsappShare();
+            }
+        });
+
 
         return view;
+    }
+
+    private void whatsappShare() {
+
+        final String blood=need_blood.getSelectedItem().toString();
+        final String district=need_district.getSelectedItem().toString();
+
+        if(blood.equals("Choose your blood group") && district.equals("Choose your district"))
+        {
+            Toast.makeText((MainActivity)getActivity(), "Please choose blood group and district", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            final Dialog dialog=new Dialog((MainActivity)getActivity());
+            dialog.setContentView(R.layout.sms_dialog);
+            dialog.setCancelable(false);
+            final EditText sms_name=dialog.findViewById(R.id.sms_name);
+            final EditText sms_phone=dialog.findViewById(R.id.sms_phone);
+            final EditText sms_hospital=dialog.findViewById(R.id.sms_hospital);
+            Button btn_cancel=dialog.findViewById(R.id.sms_cancel_btn);
+            Button btn=dialog.findViewById(R.id.sms_submit_btn);
+
+            btn_cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.cancel();
+                }
+            });
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String name=sms_name.getText().toString().trim();
+                    String phone_no=sms_phone.getText().toString();
+                    String hospital=sms_hospital.getText().toString();
+                    if(name.isEmpty() || phone_no.isEmpty())
+                    {
+                        Toast.makeText((MainActivity)getActivity(), "fields cannot be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        dialog.cancel();
+                        String wtsappMsg= "URGENT BLOOD REQUIREMENT(BB Master)\n\nName: " + name +"\nBlood group: "+blood+"\nPhone: " + phone_no +"\nHospital: "+hospital+"\nDistrict: "+district+"\n\n contact me immediately.....";
+                        Intent intent=new Intent(Intent.ACTION_SEND);
+                        intent.setType("text/plain");
+                        intent.setPackage("com.whatsapp");
+                        intent.putExtra(Intent.EXTRA_TEXT,wtsappMsg);
+                        startActivity(intent);
+
+                    }
+
+                }
+            });
+
+            dialog.show();
+        }
     }
 
     private void getDonor() {

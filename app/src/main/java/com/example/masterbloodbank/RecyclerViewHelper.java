@@ -31,6 +31,7 @@ public class RecyclerViewHelper extends RecyclerView.Adapter<RecyclerViewHelper.
     Context context;
     private ArrayList<Donor> donor;
     MainActivity activity=new MainActivity();
+    String Blood;
 
     public RecyclerViewHelper(Context context, ArrayList<Donor> donor) {
         this.context = context;
@@ -54,6 +55,7 @@ public class RecyclerViewHelper extends RecyclerView.Adapter<RecyclerViewHelper.
         holder.phone.setText(donor.get(position).getPhone());
         final int pos=position;
         final String name=donor.get(position).getName();
+        Blood=donor.get(position).getBlood_group();
 
         holder.communicate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,11 +79,6 @@ public class RecyclerViewHelper extends RecyclerView.Adapter<RecyclerViewHelper.
 
                             dialog.cancel();
                         }
-//                        else if(which==2)
-//                        {
-//                            dialog.cancel();
-//                            shareWtsApp();
-//                        }
                         else
                         {
                             dialog.cancel();
@@ -97,44 +94,6 @@ public class RecyclerViewHelper extends RecyclerView.Adapter<RecyclerViewHelper.
 
     }
 
-//    private void shareWtsApp() {
-//
-//
-//        final Dialog dialog=new Dialog(context);
-//        dialog.setContentView(R.layout.sms_dialog);
-//        dialog.setCancelable(false);
-//        final EditText sms_name=dialog.findViewById(R.id.sms_name);
-//        final EditText sms_phone=dialog.findViewById(R.id.sms_phone);
-//        Button btn=dialog.findViewById(R.id.sms_submit_btn);
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                String name=sms_name.getText().toString().trim();
-//                String phone_no=sms_phone.getText().toString();
-//                if(name.isEmpty() || phone_no.isEmpty())
-//                {
-//                    Toast.makeText(context, "fields cannot be empty", Toast.LENGTH_SHORT).show();
-//                }
-//                else {
-//                    dialog.cancel();
-//                   String wtsappMsg= "URGENT BLOOD REQUIREMENT(BB Master)\n\nName:" + name + "\nPhone:" + phone_no + "\n contact me immediately.....";
-//                    Intent intent=new Intent(Intent.ACTION_SEND);
-//                    intent.setType("text/plain");
-//                    intent.setPackage("com.whatsapp");
-//                    intent.putExtra(Intent.EXTRA_TEXT,wtsappMsg);
-//                    context.startActivity(intent);
-//
-//                }
-//
-//            }
-//        });
-//
-//        dialog.show();
-//
-//
-//
-//    }
 
     private void sendSMS(final String phone) {
 
@@ -151,6 +110,7 @@ public class RecyclerViewHelper extends RecyclerView.Adapter<RecyclerViewHelper.
             dialog.setCancelable(false);
             final EditText sms_name=dialog.findViewById(R.id.sms_name);
             final EditText sms_phone=dialog.findViewById(R.id.sms_phone);
+            final EditText sms_hospital=dialog.findViewById(R.id.sms_hospital);
             Button btn=dialog.findViewById(R.id.sms_submit_btn);
             Button btn_cancel=dialog.findViewById(R.id.sms_cancel_btn);
             btn_cancel.setOnClickListener(new View.OnClickListener() {
@@ -165,13 +125,15 @@ public class RecyclerViewHelper extends RecyclerView.Adapter<RecyclerViewHelper.
 
                     String name=sms_name.getText().toString().trim();
                     String phone_no=sms_phone.getText().toString();
-                    if(name.isEmpty() || phone_no.isEmpty())
+                    String hospital=sms_hospital.getText().toString();
+                    if(name.isEmpty() || phone_no.isEmpty() || hospital.isEmpty())
                     {
-                        Toast.makeText(context, "fields cannot be empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         dialog.cancel();
-                        String message = "URGENT BLOOD REQUIREMENT(BB Master)\n\nName:" + name + "\nPhone:" + phone_no + "\n contact me immediately.....";
+                        String message = "URGENT BLOOD REQUIREMENT(BB Master)\n\nName: " + name + "\nBlood group: "+Blood+"\nPhone: "
+                                + phone_no + "\nHospital: "+hospital+"\n\nContact me immediately.....";
                         SmsManager manager = SmsManager.getDefault();
                         manager.sendTextMessage(phone, null, message, null, null);
                         Toast.makeText(context, "Sms sent successfully", Toast.LENGTH_SHORT).show();
